@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  api-prodescriber:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: prodescriber
+    ports:
+      - 3003:3003
+    volumes:
+      - .:/home/prodescriber_api/app
+    tty: true
+    depends_on:
+      - db
+    networks:
+      - prodescriber-network
+
+  db:
+    image: mongo:4.4
+    container_name: mongo-db
+    ports:
+      - 27017:27017
+    volumes:
+      - /mongodb/dbdata:/data/db
+      - /mongodb/configdb:/data/configdb
+    environment:
+      #      MONGO_INITDB_ROOT_USERNAME: root
+      #      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: prodescriber
+    networks:
+      - prodescriber-network
+
+  redis:
+    image: 'redis:latest'
+    container_name: 'redis-container'
+    ports:
+      - '6379:6379'
+
+networks:
+  prodescriber-network:
+    driver: bridge
