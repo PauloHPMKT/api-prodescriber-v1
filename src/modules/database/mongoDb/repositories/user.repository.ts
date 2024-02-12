@@ -15,7 +15,6 @@ export class UserRepositoryImplementation implements CreateUserRepository {
   async create(
     data: CreateUserUseCase.Params,
   ): Promise<CreateUserUseCase.Result> {
-    console.log(data, 'Chegou na implementação do repository!');
     const user = await this.userModel.create(data);
     return { id: user._id.toString() };
   }
