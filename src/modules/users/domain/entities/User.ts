@@ -1,18 +1,16 @@
-export interface UserEntityProps {
-  id?: string;
-  username: string;
-  email: string;
-  password: string;
-  avatar: string | null;
-  role: UserEntity.Role;
-  role_system: UserEntity.RoleSystem;
-  status: UserEntity.Status;
-  created_at?: Date;
-  updated_at?: Date;
-}
-
 export class UserEntity {
-  constructor(private readonly props: UserEntityProps) {}
+  constructor(
+    public readonly id: string,
+    public readonly username: string,
+    public readonly email: string,
+    public readonly password: string,
+    public readonly avatar: string | null,
+    public readonly role: UserEntity.Role,
+    public readonly role_system: UserEntity.RoleSystem,
+    public readonly status: UserEntity.Status,
+    public readonly created_at?: Date,
+    public readonly updated_at?: Date,
+  ) {}
 }
 
 export namespace UserEntity {
