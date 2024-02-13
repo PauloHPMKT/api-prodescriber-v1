@@ -1,20 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/users/presentation/user.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { makeAppGuardProvider } from './infra/providers/app-guard.provider';
 
+const providers: Provider[] = [...makeAppGuardProvider(), AppService];
 @Module({
   imports: [UserModule, AuthModule],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
+  providers,
 })
 export class AppModule {}
