@@ -27,7 +27,7 @@ const providers: Provider[] = [
     UserModule,
     JwtModule.register({
       secret: '123!@#456$%¨789&*(',
-      signOptions: { expiresIn: '3000ms' },
+      signOptions: { expiresIn: '100h' },
     }),
   ],
   controllers: [AuthController],
