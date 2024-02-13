@@ -1,6 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  InternalServerErrorException,
+  Post,
+} from '@nestjs/common';
 import { CreateUserUseCase } from '../../application/usecases/create-user.usecase';
-import { CreateUserDto } from './dtos/create-user.dto';
+import { CreateUserDto } from '../dtos/create-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -8,6 +13,17 @@ export class UserController {
 
   @Post()
   async createUser(@Body() data: CreateUserDto) {
-    return await this.createUserUseCase.create(data);
+    try {
+      const result = await this.createUserUseCase.create({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        role: data.role,
+        role_system: data.role_system,
+      });
+      return result;
+    } catch (error) {
+      return new InternalServerErrorException(error);
+    }
   }
 }
