@@ -15,6 +15,6 @@ const providers: Provider[] = [
   imports: [DatabaseModule],
   controllers: [UserController],
   providers,
-  exports: [],
+  exports: [UserModule, ...providers],
 })
 export class UserModule {}
