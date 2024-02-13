@@ -13,6 +13,7 @@ import { LoginValidationMiddleware } from './middleware/validation.middleware';
 import { JwtStrategy } from './strategies/jwt.strategies';
 import { LocalStrategy } from './strategies/local.strategy';
 import { makeAuthProviders } from './infra/providers/auth.providers';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 const providers: Provider[] = [
   ...makeAuthProviders(),
@@ -24,10 +25,15 @@ const providers: Provider[] = [
 
 @Module({
   imports: [
+    ConfigModule,
     UserModule,
-    JwtModule.register({
-      secret: '123!@#456$%¨789&*(',
-      signOptions: { expiresIn: '100h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '100h' },
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],
