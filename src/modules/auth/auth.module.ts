@@ -31,7 +31,7 @@ const providers: Provider[] = [
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '100h' },
+        signOptions: { expiresIn: '50d' },
       }),
       inject: [ConfigService],
     }),
