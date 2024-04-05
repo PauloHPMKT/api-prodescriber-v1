@@ -1,22 +1,66 @@
+export interface UserProps {
+  id?: string;
+  username: string;
+  nickname: string;
+  email: string;
+  password: string;
+  avatar?: string;
+  plan: UserEntity.Plan;
+  role_system: UserEntity.RoleSystem;
+  status: UserEntity.Status;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
 export class UserEntity {
-  constructor(
-    public readonly id: string,
-    public readonly username: string,
-    public readonly email: string,
-    public readonly password: string,
-    public readonly avatar: string | null,
-    public readonly role: UserEntity.Role,
-    public readonly role_system: UserEntity.RoleSystem,
-    public readonly status: UserEntity.Status,
-    public readonly created_at?: Date,
-    public readonly updated_at?: Date,
-  ) {}
+  id: string;
+  constructor(private readonly props: UserProps) {
+    this.props.created_at = this.props.created_at ?? new Date();
+    this.props.updated_at = this.props.updated_at ?? new Date();
+    this.avatar = this.props.avatar ?? null;
+  }
+
+  get username(): string {
+    return this.props.username;
+  }
+
+  get nickname(): string {
+    return this.props.nickname;
+  }
+
+  get email(): string {
+    return this.props.email;
+  }
+
+  get password(): string {
+    return this.props.password;
+  }
+
+  get avatar(): string | null {
+    return this.props.avatar;
+  }
+
+  get plan(): UserEntity.Plan {
+    return this.props.plan;
+  }
+
+  get role_system(): UserEntity.RoleSystem {
+    return this.props.role_system;
+  }
+
+  get status(): UserEntity.Status {
+    return this.props.status;
+  }
+
+  private set avatar(value: string) {
+    this.props.avatar = value;
+  }
 }
 
 export namespace UserEntity {
-  export enum Role {
-    ADMIN = 'admin',
-    USER = 'user',
+  export enum Plan {
+    FREE = 'free',
+    PRO = 'pro',
   }
   export enum RoleSystem {
     SYSTEM = 'system',
