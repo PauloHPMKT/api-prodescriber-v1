@@ -4,8 +4,6 @@ import { CreateUserRepository } from '../../infra/repositories/create-user.repos
 import { VerifyUserRepository } from '../../infra/repositories/verify-user.repository';
 import { EncripterAdapter } from 'src/application/adapters/encripter.adapter';
 
-export type Result = any; // Define the Result type here, replace 'any' with the actual type
-
 @Injectable()
 export class CreateUserUseCase {
   constructor(
@@ -25,10 +23,9 @@ export class CreateUserUseCase {
     const encripter = await this.encriptPassword.encript(data.password);
     const userToCreate = {
       username: data.username,
+      nickname: data.nickname,
       email: data.email,
       password: encripter,
-      role: data.role,
-      role_system: data.role_system,
     };
     return await this.createUserRepository.create(userToCreate);
   }
