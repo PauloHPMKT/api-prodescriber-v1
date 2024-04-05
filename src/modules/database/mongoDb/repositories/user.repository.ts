@@ -4,16 +4,19 @@ import {
 } from 'src/modules/users/infra/repositories/create-user.repository';
 import { Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { UserEntity } from 'src/modules/users/domain/entities/User';
+import { UserEntity } from '../../../users/domain/entities/User';
 import { FindUserByEmailRepository } from 'src/modules/users/infra/repositories/find-user-by-email.repository';
 import { VerifyUserRepository } from 'src/modules/users/infra/repositories/verify-user.repository';
 import { UserDocument } from 'src/modules/users/infra/schemas/user.schema';
+import { UpdateUserRepository } from 'src/modules/users/infra/repositories/update-user.repository';
+import { UpdateUserDto } from 'src/modules/users/presentation/dtos/update-user.dto';
 
 export class UserRepositoryImplementation
   implements
     CreateUserRepository,
     FindUserByEmailRepository,
-    VerifyUserRepository
+    VerifyUserRepository,
+    UpdateUserRepository
 {
   constructor(
     @Inject('USER_MODEL')
@@ -25,8 +28,7 @@ export class UserRepositoryImplementation
       username: data.username,
       email: data.email,
       password: data.password,
-      role: data.role,
-      role_system: data.role_system,
+      ...data,
     });
     return _id.toString();
   }
@@ -36,7 +38,21 @@ export class UserRepositoryImplementation
   }
 
   async verify(data: Partial<UserEntity>): Promise<boolean> {
-    const user = await this.userModel.findOne(data);
+    let user: Partial<UserEntity>;
+    if (data.id) {
+      user = await this.userModel.findOne({ _id: data.id });
+      return !!user;
+    }
+    user = await this.userModel.findOne(data);
     return !!user;
+  }
+
+  async update(id: string, data: UpdateUserDto): Promise<string> {
+    const userToUpdate = await this.userModel.findOneAndUpdate(
+      { _id: id },
+      { $set: data },
+      { new: true },
+    );
+    return userToUpdate._id.toString();
   }
 }
