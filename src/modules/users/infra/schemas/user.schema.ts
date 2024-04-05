@@ -17,6 +17,12 @@ export class User
   @Prop({
     type: String,
     required: true,
+  })
+  nickname: string;
+
+  @Prop({
+    type: String,
+    required: true,
     unique: true,
   })
   email: string;
@@ -35,13 +41,15 @@ export class User
 
   @Prop({
     type: String,
-    enum: [UserEntity.Role.ADMIN, UserEntity.Role.USER],
+    enum: [UserEntity.Plan.FREE, UserEntity.Plan.PRO],
+    default: UserEntity.Plan.FREE,
   })
-  role: UserEntity.Role;
+  plan: UserEntity.Plan;
 
   @Prop({
     type: String,
     enum: [UserEntity.RoleSystem.SYSTEM, UserEntity.RoleSystem.USER],
+    default: UserEntity.RoleSystem.USER,
   })
   role_system: UserEntity.RoleSystem;
 
