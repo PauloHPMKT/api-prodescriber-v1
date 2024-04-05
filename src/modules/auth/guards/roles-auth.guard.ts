@@ -18,15 +18,15 @@ export class RolesGuard implements CanActivate {
 
     const decode = jwtToken.split('.')[1];
     const decodeBuffer = Buffer.from(decode, 'base64');
-    const role = JSON.parse(decodeBuffer.toString()) as JwtPayload;
+    const plan = JSON.parse(decodeBuffer.toString()) as JwtPayload;
 
-    const rolesUser = role.user.role;
+    const rolesUser = plan.user.plan;
 
-    if (rolesUser === 'admin') {
+    if (rolesUser === 'pro') {
       return true;
     } else {
       throw new UnauthorizedException(
-        'Esta requisição só poderá ser feita por um usuário administrativo',
+        'Esta requisição só poderá ser feita por um usuário conta pro',
       );
     }
   }

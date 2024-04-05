@@ -2,7 +2,7 @@ export interface UserPayload {
   sub: string;
   username: string;
   email: string;
-  role: string;
+  plan: string;
   role_system: string;
   iat?: number;
   exp?: number;
