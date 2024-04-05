@@ -4,6 +4,7 @@ import { OpenaiChatResponse } from '../models/openai-chat-response';
 import OpenAI from 'openai';
 import { CreateChatMessageUseCase } from '../../application/usecases/create-openai-chat.usecase';
 import { CreateOpenaiChatResponseUseCase } from '../../application/usecases/create-openai-response.usecase';
+import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
 
 @Controller('openai')
 export class OpenaiController {
@@ -13,6 +14,7 @@ export class OpenaiController {
   ) {}
 
   @Post('chat')
+  @IsPublic()
   async getChatOpenai(
     @Body() message: OpenaiChatRequest,
   ): Promise<OpenaiChatResponse> {
