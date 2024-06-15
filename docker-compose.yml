@@ -9,6 +9,8 @@ services:
       - 3003:3003
     volumes:
       - .:/home/prodescriber_api/app
+    environment:
+      KAFKA_BROKERS: $KAFKA_HOST
     tty: true
     depends_on:
       - db
@@ -34,7 +36,52 @@ services:
     image: 'redis:latest'
     container_name: 'redis-container'
     ports:
-      - '6379:6379'
+      - '6379:6379' 
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - 2181:2181
+    networks:
+      - prodescriber-network
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+      - 9094:9094
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LISTENER: INTERNAL://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,OUTSIDE://host.docker.internal:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+      ##KAFKA_CREATE_TOPICS: "create-user:1:1, find-all-user:1:1"
+    networks:
+      - prodescriber-network
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:latest
+    hostname: control-center
+    depends_on:
+      - kafka
+    ports:
+      - 9021:9021
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVICE: 'kafka:9092'
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      PORT: 9021
 
 networks:
   prodescriber-network:
