@@ -28,6 +28,7 @@ export class OpenaiController {
 
   @Get()
   getHello(): string {
+    console.log('Hello from OpenAI');
     return 'Hello from OpenAI';
   }
 }

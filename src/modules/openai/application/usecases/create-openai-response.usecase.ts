@@ -10,7 +10,6 @@ export class CreateOpenaiChatResponseUseCase {
       success: !!result,
       result,
     };
-    console.log(response);
     return response;
   }
 }

@@ -1,6 +1,6 @@
+import OpenAI from 'openai';
 import { Injectable } from '@nestjs/common';
 import { OpenaiChatRequest } from '../../presentation/models/openai-chat-request';
-import OpenAI from 'openai';
 import { OpenaiInstance } from '../../presentation/models/openai-instance';
 
 @Injectable()
