@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:3003
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWNhOGQ2MTM5NTU0ODJmMDk0MjE2YWUiLCJ1c2VybmFtZSI6IkhhbGlhbmUgUGVzc29hIE5hc2NpbWVudG8iLCJlbWFpbCI6ImhhbGlhbmVwZXNzb2FAZ21haWwuY29tIiwicGxhbiI6ImZyZWUiLCJyb2xlX3N5c3RlbSI6InVzZXIiLCJpYXQiOjE3MTk5NjE2NTIsImV4cCI6MTcyNDI4MTY1Mn0.n4sZB4lGodNw-MAkoQNvZldW3caCoNgzkpjuzui0n5Y
+
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username": "Usuarios de Teste",
+  "nickname": "Teste",
+  "email": "usuariodeteste@example.com",
+  "password": "123456"
+}
+###
+
+PATCH {{baseUrl}}/users/update/66848721ea1dfb57a4ff6202
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "Conta de teste"
+}

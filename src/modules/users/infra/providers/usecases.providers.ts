@@ -19,4 +19,8 @@ export const makeUserRepositoryProviders = (): Provider[] => [
     provide: 'VerifyUserRepository',
     useClass: UserRepositoryImplementation,
   },
+  {
+    provide: 'UpdateUserRepository',
+    useClass: UserRepositoryImplementation,
+  },
 ];

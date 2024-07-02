@@ -1,25 +1,29 @@
 import {
   Body,
   Controller,
+  HttpCode,
+  HttpStatus,
   InternalServerErrorException,
   Post,
 } from '@nestjs/common';
 import { CreateUserUseCase } from '../../application/usecases/create-user.usecase';
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
 
 @Controller('users')
-export class UserController {
+export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   @Post()
+  @IsPublic()
+  @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() data: CreateUserDto) {
     try {
       const result = await this.createUserUseCase.create({
         username: data.username,
+        nickname: data.nickname,
         email: data.email,
         password: data.password,
-        role: data.role,
-        role_system: data.role_system,
       });
       return result;
     } catch (error) {

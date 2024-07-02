@@ -1,9 +1,12 @@
-import { UserEntity } from 'src/modules/users/domain/entities/User';
+//import { UserEntity } from '../../domain/entities/User';
 
-export class CreateUserDto extends UserEntity {
+export class CreateUserDto {
+  id?: string;
   username: string;
+  nickname: string;
   email: string;
   password: string;
-  role: UserEntity.Role;
-  role_system: UserEntity.RoleSystem;
+  // plan: UserEntity.Plan;
+  // role_system: UserEntity.RoleSystem;
+  // status: UserEntity.Status;
 }
