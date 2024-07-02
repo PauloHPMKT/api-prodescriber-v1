@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common';
-import { Encripter } from 'src/infra/shared/encripter';
+import { Encripter } from 'src/modules/users/infra/shared/encripter';
 import { UserRepositoryImplementation } from 'src/modules/database/mongoDb/repositories/user.repository';
 
 export const makeUserRepositoryProviders = (): Provider[] => [

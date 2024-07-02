@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserModel } from '../../domain/models/user.model';
-import { CreateUserRepository } from '../../infra/repositories/create-user.repository';
-import { VerifyUserRepository } from '../../infra/repositories/verify-user.repository';
+import { CreateUserRepository } from '../repositories/create-user.repository';
+import { VerifyUserRepository } from '../repositories/verify-user.repository';
 import { EncripterAdapter } from 'src/application/adapters/encripter.adapter';
 
 @Injectable()

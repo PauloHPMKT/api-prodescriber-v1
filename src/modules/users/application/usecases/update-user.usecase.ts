@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UpdateUserRepository } from '../../infra/repositories/update-user.repository';
+import { UpdateUserRepository } from '../repositories/update-user.repository';
 import { UpdateUserDto } from '../../presentation/dtos/update-user.dto';
-import { VerifyUserRepository } from '../../infra/repositories/verify-user.repository';
+import { VerifyUserRepository } from '../repositories/verify-user.repository';
 
 @Injectable()
 export class UpdateUserUseCase {
