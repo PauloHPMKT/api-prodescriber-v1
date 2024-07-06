@@ -1,14 +1,14 @@
 import {
   CreateUserRepository,
   CreateUserUseCase,
-} from 'src/modules/users/infra/repositories/create-user.repository';
+} from 'src/modules/users/application/repositories/create-user.repository';
 import { Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { UserEntity } from '../../../users/domain/entities/User';
-import { FindUserByEmailRepository } from 'src/modules/users/infra/repositories/find-user-by-email.repository';
-import { VerifyUserRepository } from 'src/modules/users/infra/repositories/verify-user.repository';
+import { FindUserByEmailRepository } from 'src/modules/users/application/repositories/find-user-by-email.repository';
+import { VerifyUserRepository } from 'src/modules/users/application/repositories/verify-user.repository';
 import { UserDocument } from 'src/modules/users/infra/schemas/user.schema';
-import { UpdateUserRepository } from 'src/modules/users/infra/repositories/update-user.repository';
+import { UpdateUserRepository } from 'src/modules/users/application/repositories/update-user.repository';
 import { UpdateUserDto } from 'src/modules/users/presentation/dtos/update-user.dto';
 
 export class UserRepositoryImplementation

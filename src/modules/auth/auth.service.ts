@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../users/domain/entities/User';
 import { UserToken } from './models/user.token';
 import { EncripterAdapter } from 'src/application/adapters/encripter.adapter';
-import { FindUserByEmailRepository } from '../users/infra/repositories/find-user-by-email.repository';
+import { FindUserByEmailRepository } from '../users/application/repositories/find-user-by-email.repository';
 import { UserPayload } from './models/user.payload';
 
 @Injectable()

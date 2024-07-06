@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:3003
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBmNTJkMmJlY2ZmMjhjZDNjYzAyNTIiLCJ1c2VybmFtZSI6IkRhbmllbCBTYW50b3MiLCJlbWFpbCI6ImRhbmllbEB0ZXN0ZS5jb20iLCJwbGFuIjoiZnJlZSIsInJvbGVfc3lzdGVtIjoidXNlciIsImlhdCI6MTcxODQ2MjY5MywiZXhwIjoxNzIyNzgyNjkzfQ.8b5usTNtu8e-CzOYH9apVbfYfH7XvnA5NWWwKJ-0aWE
+
+GET {{baseUrl}}/openai
+Authorization: Bearer {{token}}
+Accept: application/json
+###
+
+POST {{baseUrl}}/openai/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    {
+      "role": "user", 
+      "content": "Crie uma descrição totalmente SEO friendly para o produto Mountain Bike TSW, considerando a descrição: TWS é uma bicicleta esportiva própria para trilhas e montanhas, na categoria: Esportiva, visando atender as necessidades do publico ciclista, da região do Pará."
+    }
+  ]
+}
